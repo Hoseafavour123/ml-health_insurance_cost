@@ -26,9 +26,9 @@ def predict_datapoint():
         pred_df = data.get_data_as_data_frame()
 
         predict_pipeline = PredictPipeline()
-        results = predict_pipeline.predict(pred_df)
+        result = predict_pipeline.predict(pred_df)[0]
         
-        return ({"results": results[0]})
+        return render_template('home.html', result=round(result, 2))
     return render_template('home.html')
 
 if __name__ == '__main__':

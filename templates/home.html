@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance cost prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
+            color: #3c763d;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1.5em;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Health Insurance Cost Prediction</h2>
+        <form id="insuranceForm" method="POST" action="/predict_datapoint">
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="bmi">BMI (Body Mass Index)</label>
+                <input type="number" step="0.1" id="bmi" name="bmi" required>
+            </div>
+            <div class="form-group">
+                <label for="region">Region</label>
+                <select id="region" name="region" required>
+                    <option value="">Select Region</option>
+                    <option value="northwest">Northwest</option>
+                    <option value="northeast">Northeast</option>
+                    <option value="southwest">Southwest</option>
+                    <option value="southeast">Southeast</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sex">Sex</label>
+                <select id="sex" name="sex" required>
+                    <option value="">Select Sex</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="children">Number of Children</label>
+                <input type="number" id="children" name="children" required>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        {% if result %}
+        <div id="result" class="result">
+            Estimated Cost: ${{ "{:,}".format(result) }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
